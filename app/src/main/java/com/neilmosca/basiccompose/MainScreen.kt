@@ -7,10 +7,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.neilmosca.basiccompose.mvi.CounterScreen
+import com.neilmosca.basiccompose.mvvm.FruitRepositoryImpl
 import com.neilmosca.basiccompose.mvvm.FruitScreen
+import com.neilmosca.basiccompose.mvvm.FruitViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    viewModel: FruitViewModel
+) {
     var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf("Counter (MVI)", "Fruits (MVVM)")
 
@@ -34,7 +38,7 @@ fun MainScreen() {
         ) {
             when (selectedTab) {
                 0 -> CounterScreen()
-                1 -> FruitScreen()
+                1 -> FruitScreen(viewModel = viewModel)
             }
         }
     }

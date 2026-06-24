@@ -1,5 +1,6 @@
 package com.neilmosca.basiccompose.mvvm
 
 data class Fruit(
-    val name: String = ""
+    val name: String = "",
+    val imageResId: Int = 0
 )

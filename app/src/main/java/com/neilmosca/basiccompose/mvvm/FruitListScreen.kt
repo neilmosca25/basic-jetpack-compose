@@ -1,17 +1,24 @@
 package com.neilmosca.basiccompose.mvvm
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.neilmosca.basiccompose.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,14 +66,36 @@ fun FruitList(
 @Composable
 fun FruitItem(fruit: Fruit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
-        Text(
-            text = fruit.name,
-            modifier = Modifier.padding(16.dp),
-            style = MaterialTheme.typography.bodyLarge
-        )
+        Row(
+            modifier = Modifier
+                .height(110.dp)
+                .padding(10.dp)
+                .fillMaxWidth()
+        ) {
+            Image(
+                modifier = Modifier
+                    .size(80.dp)
+                    .align(Alignment.CenterVertically),
+                painter = painterResource(id = fruit.imageResId),
+                contentDescription = fruit.name
+            )
+            Spacer(
+                modifier = Modifier.width(10.dp)
+            )
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically),
+                text = fruit.name,
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
+
     }
 }
 
@@ -76,9 +105,34 @@ fun FruitScreenPreview() {
     MaterialTheme {
         FruitContent(
             fruits = listOf(
-                Fruit("Apple"),
-                Fruit("Banana"),
-                Fruit("Orange")
+                Fruit(
+                    name = "Apple",
+                    imageResId = R.drawable.apple
+                ),
+                Fruit(
+                    name = "Banana",
+                    imageResId = R.drawable.banana
+                ),
+                Fruit(
+                    name = "Orange",
+                    imageResId = R.drawable.orange
+                )
+            )
+        )
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun FruitItemListPreview() {
+    Column(
+        modifier = Modifier.padding(10.dp)
+    ) {
+        FruitItem(
+            Fruit(
+                name = "Apple",
+                imageResId = R.drawable.apple
             )
         )
     }
